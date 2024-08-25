@@ -50,7 +50,7 @@ const Header: React.FC = () => {
       </Link>
       <div className='flex items-center space-x-4'>
         <button onClick={toggleTheme}>{theme === 'dark' ? <FaSun /> : <FaMoon />}</button>
-        <Link to='/search' className='flex items-center'>
+        <Link to='../search' className='flex items-center'>
           <FaSearch />
         </Link>
         <Link to='/user' className='flex items-center'>
