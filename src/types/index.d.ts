@@ -15,6 +15,13 @@ export interface PokemonState {
   totalPages: number
   loading: boolean
   error: string | null
+  pokemonsByAbility: {
+    pokemons: Pokemon[]
+    currentPage: number
+    totalPages: number
+    loading: boolean
+    error: string | null
+  }
 }
 
 export interface Generation {
