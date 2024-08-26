@@ -7,6 +7,10 @@ export interface Pokemon {
   types: { type: { name: string } }[]
   abilities: Ability[]
   base_experience: string
+  height: number // Высота покемона в метрах
+  weight: number // Вес покемона в кг
+  abilities: Array<{ ability: { name: string } }>
+  stats: Array<{ stat: { name: string }; base_stat: number }>
 }
 
 export interface PokemonState {
@@ -34,11 +38,14 @@ export interface GenerationsState {
   loading: boolean
   error: string | null
 }
-
 export interface EvolutionChain {
   id: number
   chain: {
-    evolves_to: { species: { name: string } }[]
+    evolves_to: Array<{
+      species: { name: string; url: string }
+      evolves_to: Array<any> // This can be recursively nested, so it could be an array of objects or empty
+    }>
+    species: { name: string; url: string }
   }
 }
 

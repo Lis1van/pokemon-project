@@ -38,7 +38,11 @@ const initialState: PokemonState = {
 const pokemonSlice = createSlice({
   name: 'pokemon',
   initialState,
-  reducers: {},
+  reducers: {
+    setPage(state: PokemonState, action: PayloadAction<number>) {
+      state.currentPage = action.payload
+    },
+  },
   extraReducers: builder => {
     builder
       .addCase(fetchPokemons.pending, state => {
@@ -49,7 +53,6 @@ const pokemonSlice = createSlice({
         state.loading = false
         state.pokemons = action.payload.pokemons
         state.totalPages = action.payload.totalPages
-        state.currentPage += 1 // Инкремент текущей страницы
       })
       .addCase(fetchPokemons.rejected, (state, action) => {
         state.loading = false
@@ -117,5 +120,7 @@ export const selectPokemonsByAbility = createSelector([selectPokemonState], poke
   currentPage: pokemonState.pokemonsByAbility.currentPage,
   totalPages: pokemonState.pokemonsByAbility.totalPages,
 }))
+
+export const { setPage } = pokemonSlice.actions
 
 export default pokemonSlice.reducer

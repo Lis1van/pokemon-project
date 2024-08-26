@@ -1,37 +1,3 @@
-// import React, { useEffect } from 'react'
-// import { useDispatch, useSelector } from 'react-redux'
-// import { useParams } from 'react-router-dom'
-// import { fetchPokemonsByType } from '../features/pokemon/thunks/fetchPokemonsByType'
-// import { selectPokemonsByType } from '../features/pokemon/selectors'
-// import PokemonCard from '../components/PokemonCard'
-// import Pagination from '../components/Pagination'
-
-// const TypePage: React.FC = () => {
-//   const { typeName } = useParams()
-//   const dispatch = useDispatch()
-//   const { pokemons, currentPage, totalPages } = useSelector(selectPokemonsByType)
-
-//   useEffect(() => {
-//     if (typeName) {
-//       dispatch(fetchPokemonsByType(typeName, currentPage))
-//     }
-//   }, [dispatch, typeName, currentPage])
-
-//   return (
-//     <div>
-//       <h1 className='text-2xl mb-4'>Pokémons of Type: {typeName}</h1>
-//       <div className='grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4'>
-//         {pokemons.map(pokemon => (
-//           <PokemonCard key={pokemon.id} pokemon={pokemon} />
-//         ))}
-//       </div>
-//       <Pagination currentPage={currentPage} totalPages={totalPages} />
-//     </div>
-//   )
-// }
-
-// export default TypePage
-
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
