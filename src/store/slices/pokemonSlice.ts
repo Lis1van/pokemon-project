@@ -3,6 +3,7 @@ import { createSelector } from 'reselect'
 import { fetchPokemonById } from '../thunks/fetchPokemonById'
 import { fetchPokemonsByAbility } from '../thunks/fetchPokemonsByAbility'
 import { Pokemon } from '../../types'
+import { fetchPokemons } from '../thunks/fetchPokemons'
 
 interface PokemonState {
   pokemons: Pokemon[]
@@ -40,6 +41,20 @@ const pokemonSlice = createSlice({
   reducers: {},
   extraReducers: builder => {
     builder
+      .addCase(fetchPokemons.pending, state => {
+        state.loading = true
+        state.error = null
+      })
+      .addCase(fetchPokemons.fulfilled, (state, action: PayloadAction<{ pokemons: Pokemon[]; totalPages: number }>) => {
+        state.loading = false
+        state.pokemons = action.payload.pokemons
+        state.totalPages = action.payload.totalPages
+        state.currentPage += 1 // Инкремент текущей страницы
+      })
+      .addCase(fetchPokemons.rejected, (state, action) => {
+        state.loading = false
+        state.error = action.payload as string
+      })
       .addCase(fetchPokemonById.pending, state => {
         state.loading = true
         state.error = null
@@ -77,7 +92,10 @@ const pokemonSlice = createSlice({
 
 const selectPokemonState = (state: { pokemon: PokemonState }) => state.pokemon
 
-export const selectPokemons = createSelector([selectPokemonState], pokemonState => pokemonState.pokemons)
+export const selectPokemons = createSelector([selectPokemonState], pokemonState => {
+  console.log('Selecting pokemons from state:', pokemonState)
+  return pokemonState.pokemons
+})
 
 export const selectTotalPages = createSelector([selectPokemonState], pokemonState => pokemonState.totalPages)
 
