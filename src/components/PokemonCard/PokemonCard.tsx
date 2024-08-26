@@ -188,7 +188,7 @@ const PokemonCard: React.FC<PokemonCardProps> = ({ pokemon }) => {
         <div className='text-center'>
           {pokemon.id && (
             <img
-              src={`../../assets/images/sprites/pokemon/other/official-artwork/${pokemon.id}.png`}
+              src={`/assets/images/sprites/pokemon/other/official-artwork/${pokemon.id}.png`}
               alt={pokemon.name}
               className='w-20 h-20 mx-auto'
               onError={e => {

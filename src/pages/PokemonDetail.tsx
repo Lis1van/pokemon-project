@@ -98,7 +98,7 @@ const PokemonDetail: React.FC = () => {
     <div>
       <h1 className='text-3xl mb-4'>{pokemon.name}</h1>
       <img
-        src={require(`../assets/images/sprites/pokemon/other/official-artwork/${pokemon.id}.png`)}
+        src={require(`/assets/images/sprites/pokemon/other/official-artwork/${pokemon.id}.png`)}
         alt={pokemon.name}
         className='w-40 h-40 mx-auto'
       />
