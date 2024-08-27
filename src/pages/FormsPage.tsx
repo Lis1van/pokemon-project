@@ -1,37 +1,3 @@
-// import React, { useEffect } from 'react'
-// import { useParams } from 'react-router-dom'
-// import { useDispatch, useSelector } from 'react-redux'
-// import { AppDispatch } from '../store'
-// import { fetchPokemonForm } from '../store/thunks/fetchPokemonForm'
-// import { selectPokemonForm } from '../store/slices/pokemonFormSlice'
-
-// const FormsPage: React.FC = () => {
-//   const { formId } = useParams<{ formId: string }>()
-//   const dispatch = useDispatch<AppDispatch>()
-//   // const form = useSelector((state: RootState) => selectPokemonForm(state, Number(formId)))
-//   const form = useSelector(selectPokemonForm)
-
-//   useEffect(() => {
-//     if (formId) {
-//       dispatch(fetchPokemonForm(Number(formId)))
-//     }
-//   }, [dispatch, formId])
-
-//   if (!form) return <div>Loading...</div>
-
-//   return (
-//     <div className='container mx-auto p-6'>
-//       <div className='bg-white shadow-lg rounded-lg p-6'>
-//         <div className='flex flex-col items-center'>
-//           <h2 className='text-xl font-bold mt-2'>{form.name}</h2>
-//           <img src={form.sprites.front_default} alt={form.name} className='w-52 h-52' />
-//           {/* Дополнительная информация о форме покемона */}
-//         </div>
-//       </div>
-//     </div>
-//   )
-// }
-
 import React, { useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
