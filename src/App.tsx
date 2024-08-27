@@ -7,6 +7,7 @@ import TypePage from './pages/TypePage'
 import AbilityPage from './pages/AbilityPage'
 import UserPage from './pages/UserPage'
 import SearchResults from './components/SearchResults'
+import FormsPage from './pages/FormsPage'
 
 const App: React.FC = () => {
   return (
@@ -21,6 +22,7 @@ const App: React.FC = () => {
             <Route path='/ability/:abilityName' element={<AbilityPage />} />
             <Route path='/user' element={<UserPage />} />
             <Route path='/search-results' element={<SearchResults />} />
+            <Route path='/pokemon/forms/:formId' element={<FormsPage />} />
           </Routes>
         </main>
       </div>

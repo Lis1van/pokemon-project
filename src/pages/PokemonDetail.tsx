@@ -32,6 +32,7 @@ const PokemonDetail: React.FC = () => {
   const { id } = useParams<{ id: string }>()
   const dispatch = useDispatch<AppDispatch>()
   const pokemon = useSelector((state: RootState) => selectPokemonById(state, Number(id)))
+
   const navigate = useNavigate()
 
   useEffect(() => {
@@ -118,7 +119,10 @@ const PokemonDetail: React.FC = () => {
                       onClick={() => {
                         if (form.url) {
                           const formId = form.url.split('/').slice(-2)[0]
-                          navigate(`/pokemon/${formId}`)
+                          console.log('Переход на страницу покемона с ID:', formId)
+                          console.log('Form URL:', form.url)
+                          console.log('Form ID:', formId)
+                          navigate(`/pokemon/forms/${formId}`)
                         } else {
                           console.error('URL формы не определен', form)
                         }

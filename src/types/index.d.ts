@@ -34,7 +34,7 @@ export interface PokemonForm {
 
 export interface PokemonState {
   pokemons: Pokemon[]
-  searchResults: Pokemon[] // Добавляем это поле
+  searchResults: Pokemon[]
   currentPage: number
   totalPages: number
   loading: boolean
@@ -45,6 +45,9 @@ export interface PokemonState {
     totalPages: number
     loading: boolean
     error: string | null
+  }
+  details?: {
+    forms?: PokemonForm[]
   }
 }
 
