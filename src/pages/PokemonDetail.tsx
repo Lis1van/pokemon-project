@@ -111,25 +111,25 @@ const PokemonDetail: React.FC = () => {
             <div className='mt-4'>
               <h3 className='text-lg font-semibold mb-2'>Forms:</h3>
               <div className='flex flex-wrap gap-2'>
-                {pokemon.forms.map(form => (
-                  <button
-                    key={form.name}
-                    onClick={() => {
-                      if (form.url) {
-                        try {
-                          const formId = form.url.split('/').slice(-2, -1)[0]
+                {pokemon.forms && pokemon.forms.length > 0 ? (
+                  pokemon.forms.map(form => (
+                    <button
+                      key={form.name}
+                      onClick={() => {
+                        if (form.url) {
+                          const formId = form.url.split('/').slice(-2)[0]
                           navigate(`/pokemon/${formId}`)
-                        } catch (error) {
-                          console.error('Error parsing form URL:', error)
+                        } else {
+                          console.error('URL формы не определен', form)
                         }
-                      } else {
-                        console.error('Form URL is undefined or invalid', form)
-                      }
-                    }}
-                    className='inline-block px-3 py-1 text-sm font-semibold text-gray-700 bg-gray-200 rounded-full shadow-md hover:bg-gray-300 transition duration-300'>
-                    {form.name}
-                  </button>
-                ))}
+                      }}
+                      className='inline-block px-3 py-1 text-sm font-semibold text-gray-700 bg-gray-200 rounded-full shadow-md hover:bg-gray-300 transition duration-300'>
+                      {form.name}
+                    </button>
+                  ))
+                ) : (
+                  <p>У этого покемона нет других форм.</p>
+                )}
               </div>
             </div>
 

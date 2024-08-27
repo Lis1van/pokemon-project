@@ -2,7 +2,6 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import { Pokemon } from '../../types'
 
-// Путь к изображениям типов
 const typeImages: Record<string, string> = {
   bug: '/assets/images/sprites/types/generation-iii/emerald/7.png',
   dark: '/assets/images/sprites/types/generation-iii/emerald/17.png',
@@ -29,15 +28,14 @@ interface PokemonCardProps {
 }
 
 const PokemonCard: React.FC<PokemonCardProps> = ({ pokemon }) => {
-  // Проверка наличия данных о покемоне
-  console.log('Pokemon data:', pokemon)
+  // console.log('Pokemon data:', pokemon)
 
   if (!pokemon || !pokemon.id || !pokemon.name) {
-    console.error('Invalid pokemon data:', pokemon)
+    // console.error('Invalid pokemon data:', pokemon)
     return null
   }
 
-  console.log('Rendering PokemonCard for:', pokemon.name)
+  // console.log('Rendering PokemonCard for:', pokemon.name)
 
   return (
     <div className='p-4 rounded-lg shadow-lg bg-white text-black'>
@@ -49,7 +47,7 @@ const PokemonCard: React.FC<PokemonCardProps> = ({ pokemon }) => {
               alt={pokemon.name}
               className='w-20 h-20 mx-auto'
               onError={e => {
-                e.currentTarget.src = '/assets/images/placeholder.png' // Запасное изображение при ошибке загрузки
+                e.currentTarget.src = '/assets/images/placeholder.png'
                 console.error('Image load error for pokemon:', pokemon.name)
               }}
             />
@@ -65,7 +63,7 @@ const PokemonCard: React.FC<PokemonCardProps> = ({ pokemon }) => {
           pokemon.types.map(type => (
             <Link key={type.type.name} to={`/type/${type.type.name}`} className='inline-block ml-2'>
               <img
-                src={typeImages[type.type.name] || '/assets/images/types/default.png'} // Запасное изображение при отсутствии изображения типа
+                src={typeImages[type.type.name] || '/assets/images/types/default.png'}
                 alt={type.type.name}
                 className='w-8 h-6'
               />

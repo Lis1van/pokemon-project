@@ -1,3 +1,14 @@
+// export interface PokemonForm {
+//   id: number
+//   name: string
+//   url: string
+//   sprites: {
+//     front_default: string
+//     [key: string]: any
+//   }
+//   types: Array<{ type: { name: string } }>
+//   stats: Array<{ base_stat: number; stat: { name: string } }>
+// }
 export interface Pokemon {
   id: number
   name: string
@@ -7,9 +18,8 @@ export interface Pokemon {
   types: { type: { name: string } }[]
   abilities: Ability[]
   base_experience: string
-  height: number // Высота покемона в метрах
-  weight: number // Вес покемона в кг
-  abilities: Array<{ ability: { name: string } }>
+  height: number
+  weight: number
   stats: Array<{ stat: { name: string }; base_stat: number }>
   forms: PokemonForm[]
   species: {
@@ -18,15 +28,8 @@ export interface Pokemon {
 }
 
 export interface PokemonForm {
-  id: number
   name: string
   url: string
-  sprites: {
-    front_default: string
-    [key: string]: any
-  }
-  types: Array<{ type: { name: string } }>
-  stats: Array<{ base_stat: number; stat: { name: string } }>
 }
 
 export interface PokemonState {

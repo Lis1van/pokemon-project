@@ -8,7 +8,7 @@ import { searchPokemon } from '../thunks/searchPokemon'
 
 export interface PokemonState {
   pokemons: Pokemon[]
-  searchResults: Pokemon[] // Добавляем это поле
+  searchResults: Pokemon[]
   currentPage: number
   totalPages: number
   loading: boolean
@@ -24,7 +24,7 @@ export interface PokemonState {
 
 const initialState: PokemonState = {
   pokemons: [],
-  searchResults: [], // Добавляем это поле
+  searchResults: [],
   currentPage: 1,
   totalPages: 0,
   loading: false,
@@ -71,8 +71,10 @@ const pokemonSlice = createSlice({
       .addCase(fetchPokemonById.fulfilled, (state, action: PayloadAction<Pokemon>) => {
         state.loading = false
         const pokemon = action.payload
-        const existingPokemon = state.pokemons.find(p => p.id === pokemon.id)
-        if (!existingPokemon) {
+        const existingPokemonIndex = state.pokemons.findIndex(p => p.id === pokemon.id)
+        if (existingPokemonIndex !== -1) {
+          state.pokemons[existingPokemonIndex] = pokemon
+        } else {
           state.pokemons.push(pokemon)
         }
       })

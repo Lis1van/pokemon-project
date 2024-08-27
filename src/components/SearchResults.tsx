@@ -1,28 +1,3 @@
-// // src/components/SearchResults.tsx
-// import React from 'react'
-// import { useSelector } from 'react-redux'
-// import { RootState } from '../store'
-// import PokemonCard from './PokemonCard'
-// import { Pokemon } from '../types' // Импортируем тип Pokemon
-
-// const SearchResults: React.FC = () => {
-//   const { searchResults, loading, error } = useSelector((state: RootState) => state.pokemon)
-
-//   if (loading) return <div>Загрузка...</div>
-//   if (error) return <div>Ошибка: {error}</div>
-//   if (searchResults.length === 0) return <div>Ничего не найдено</div>
-
-//   return (
-//     <div className='grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4 mt-4'>
-//       {searchResults.map((pokemon: Pokemon) => (
-//         <PokemonCard key={pokemon.id} pokemon={pokemon} />
-//       ))}
-//     </div>
-//   )
-// }
-
-// export default SearchResults
-
 import React, { useState, useEffect } from 'react'
 import { useSelector } from 'react-redux'
 import PokemonCard from './PokemonCard'
