@@ -29,6 +29,7 @@ import TypePage from './pages/TypePage'
 import AbilityPage from './pages/AbilityPage'
 import UserPage from './pages/UserPage'
 import SearchPage from './pages/SearchPage'
+import SearchResults from './components/SearchResults'
 
 const App: React.FC = () => {
   return (
@@ -43,6 +44,7 @@ const App: React.FC = () => {
             <Route path='/ability/:abilityName' element={<AbilityPage />} />
             <Route path='/user' element={<UserPage />} />
             <Route path='/search' element={<SearchPage />} />
+            <Route path='/search-results' element={<SearchResults />} />
           </Routes>
         </main>
       </div>

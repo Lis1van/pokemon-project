@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Link, useParams } from 'react-router-dom'
+import { Link, useNavigate, useParams } from 'react-router-dom'
 import { fetchPokemonById } from '../store/thunks/fetchPokemonById'
 import { selectPokemonById } from '../store/slices/pokemonSlice'
 import { AppDispatch, RootState } from '../store'
@@ -32,6 +32,7 @@ const PokemonDetail: React.FC = () => {
   const { id } = useParams<{ id: string }>()
   const dispatch = useDispatch<AppDispatch>()
   const pokemon = useSelector((state: RootState) => selectPokemonById(state, Number(id)))
+  const navigate = useNavigate()
 
   useEffect(() => {
     if (id && !pokemon) {
@@ -39,6 +40,13 @@ const PokemonDetail: React.FC = () => {
     }
     if (id) {
       dispatch(fetchEvolutions(Number(id)))
+    }
+    if (pokemon && pokemon.forms) {
+      pokemon.forms.forEach(form => {
+        if (!form.url) {
+          console.error('Form URL is undefined or invalid', form)
+        }
+      })
     }
   }, [dispatch, id, pokemon])
 
@@ -75,14 +83,17 @@ const PokemonDetail: React.FC = () => {
               </div>
             </div>
             <div className='mt-4'>
-              <h3 className='text-lg font-semibold'>Abilities:</h3>
-              <ul>
+              <h3 className='text-lg font-semibold mb-2'>Abilities:</h3>
+              <div className='flex flex-wrap gap-2'>
                 {pokemon.abilities.map(ability => (
-                  <li key={ability.ability.name} className='text-lg'>
+                  <span
+                    key={ability.ability.name}
+                    className='inline-block px-3 py-1 text-sm font-semibold text-gray-700 bg-gray-200 rounded-full shadow-md hover:bg-gray-300 transition duration-300 cursor-pointer'
+                    onClick={() => navigate(`/ability/${ability.ability.name}`)}>
                     {ability.ability.name}
-                  </li>
+                  </span>
                 ))}
-              </ul>
+              </div>
             </div>
             <div className='mt-4'>
               <h3 className='text-lg font-semibold'>Stats:</h3>
@@ -96,8 +107,33 @@ const PokemonDetail: React.FC = () => {
                 ))}
               </div>
             </div>
+
             <div className='mt-4'>
-              {/* <h3 className='text-lg font-semibold'>Evolutions:</h3> */}
+              <h3 className='text-lg font-semibold mb-2'>Forms:</h3>
+              <div className='flex flex-wrap gap-2'>
+                {pokemon.forms.map(form => (
+                  <button
+                    key={form.name}
+                    onClick={() => {
+                      if (form.url) {
+                        try {
+                          const formId = form.url.split('/').slice(-2, -1)[0]
+                          navigate(`/pokemon/${formId}`)
+                        } catch (error) {
+                          console.error('Error parsing form URL:', error)
+                        }
+                      } else {
+                        console.error('Form URL is undefined or invalid', form)
+                      }
+                    }}
+                    className='inline-block px-3 py-1 text-sm font-semibold text-gray-700 bg-gray-200 rounded-full shadow-md hover:bg-gray-300 transition duration-300'>
+                    {form.name}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            <div className='mt-4'>
               <EvolutionPage />
             </div>
           </div>

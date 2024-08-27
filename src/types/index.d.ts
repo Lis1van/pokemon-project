@@ -11,10 +11,27 @@ export interface Pokemon {
   weight: number // Вес покемона в кг
   abilities: Array<{ ability: { name: string } }>
   stats: Array<{ stat: { name: string }; base_stat: number }>
+  forms: PokemonForm[]
+  species: {
+    url: string
+  }
+}
+
+export interface PokemonForm {
+  id: number
+  name: string
+  url: string
+  sprites: {
+    front_default: string
+    [key: string]: any
+  }
+  types: Array<{ type: { name: string } }>
+  stats: Array<{ base_stat: number; stat: { name: string } }>
 }
 
 export interface PokemonState {
   pokemons: Pokemon[]
+  searchResults: Pokemon[] // Добавляем это поле
   currentPage: number
   totalPages: number
   loading: boolean

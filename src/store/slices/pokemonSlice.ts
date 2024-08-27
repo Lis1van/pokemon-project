@@ -4,9 +4,11 @@ import { fetchPokemonById } from '../thunks/fetchPokemonById'
 import { fetchPokemonsByAbility } from '../thunks/fetchPokemonsByAbility'
 import { Pokemon } from '../../types'
 import { fetchPokemons } from '../thunks/fetchPokemons'
+import { searchPokemon } from '../thunks/searchPokemon'
 
-interface PokemonState {
+export interface PokemonState {
   pokemons: Pokemon[]
+  searchResults: Pokemon[] // Добавляем это поле
   currentPage: number
   totalPages: number
   loading: boolean
@@ -22,6 +24,7 @@ interface PokemonState {
 
 const initialState: PokemonState = {
   pokemons: [],
+  searchResults: [], // Добавляем это поле
   currentPage: 1,
   totalPages: 0,
   loading: false,
@@ -41,6 +44,9 @@ const pokemonSlice = createSlice({
   reducers: {
     setPage(state: PokemonState, action: PayloadAction<number>) {
       state.currentPage = action.payload
+    },
+    setAbilityPage: (state, action: PayloadAction<number>) => {
+      state.pokemonsByAbility.currentPage = action.payload
     },
   },
   extraReducers: builder => {
@@ -78,17 +84,26 @@ const pokemonSlice = createSlice({
         state.pokemonsByAbility.loading = true
         state.pokemonsByAbility.error = null
       })
-      .addCase(
-        fetchPokemonsByAbility.fulfilled,
-        (state, action: PayloadAction<{ pokemons: Pokemon[]; totalPages: number }>) => {
-          state.pokemonsByAbility.loading = false
-          state.pokemonsByAbility.pokemons = action.payload.pokemons
-          state.pokemonsByAbility.totalPages = action.payload.totalPages
-        },
-      )
+      .addCase(fetchPokemonsByAbility.fulfilled, (state, action) => {
+        state.pokemonsByAbility.loading = false
+        state.pokemonsByAbility.pokemons = action.payload.pokemons
+        state.pokemonsByAbility.totalPages = action.payload.totalPages
+      })
       .addCase(fetchPokemonsByAbility.rejected, (state, action) => {
         state.pokemonsByAbility.loading = false
         state.pokemonsByAbility.error = action.payload as string
+      })
+      .addCase(searchPokemon.pending, state => {
+        state.loading = true
+        state.error = null
+      })
+      .addCase(searchPokemon.fulfilled, (state, action: PayloadAction<Pokemon[]>) => {
+        state.loading = false
+        state.searchResults = action.payload
+      })
+      .addCase(searchPokemon.rejected, (state, action) => {
+        state.loading = false
+        state.error = action.payload as string
       })
   },
 })
@@ -122,5 +137,6 @@ export const selectPokemonsByAbility = createSelector([selectPokemonState], poke
 }))
 
 export const { setPage } = pokemonSlice.actions
+export const { setAbilityPage } = pokemonSlice.actions
 
 export default pokemonSlice.reducer
